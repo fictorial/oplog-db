@@ -7,12 +7,8 @@ const debug = require('debug')('oplog-db')
 
 class OplogDatabase {
   constructor (data_dir) {
-
-    // By default, look up a directory for a `data` directory,
-    // assuming this source file is in say `lib`
-
     if (data_dir === undefined) {
-      const candidate_data_dir = fs.realpathSync(`${__dirname}/data`)
+      const candidate_data_dir = 'data'
 
       try {
         if (fs.statSync(candidate_data_dir).isDirectory()) {
