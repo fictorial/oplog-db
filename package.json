@@ -1,0 +1,18 @@
+{
+  "name": "oplog-db",
+  "version": "1.0.0",
+  "description": "A operations log on JS objects",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": ["oplog"],
+  "author": "Brian Hammond <brian@fictorial.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "json-streaming-reader": "^1.0.2",
+    "lodash": "^4.17.11",
+    "shortid": "^2.2.14"
+  }
+}
