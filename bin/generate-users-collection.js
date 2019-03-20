@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-// DEBUG=generator bin/generate-fake-object-database.js
+// DEBUG=generator bin/generate-users-collection.js
 
-const { ObjectDatabase, LoggedObject } = require('../lib/object-database')
+const db = require('..')
 const debug = require('debug')('generator')
 const shortid = require('shortid')
 
-const db = new ObjectDatabase()
-class FakeUser extends LoggedObject {}
-const users = db.ensure_collection('users', FakeUser)
+const database = new db.Database()
+class FakeUser extends db.Object{}
+const users = database.ensure_collection('users', FakeUser)
 users.enable_logging()
 
 const adds = 10000

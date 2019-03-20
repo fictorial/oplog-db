@@ -3,16 +3,16 @@ const _ = require('lodash')
 const fs = require('fs')
 const EventEmitter = require('events')
 const JsonStreamReader = require('json-streaming-reader').JsonStreamReader
-const debug = require('debug')('object-db')
+const debug = require('debug')('oplog-db')
 
-class ObjectDatabase {
+class OplogDatabase {
   constructor (data_dir) {
 
     // By default, look up a directory for a `data` directory,
     // assuming this source file is in say `lib`
 
     if (data_dir === undefined) {
-      const candidate_data_dir = fs.realpathSync(`${__dirname}/../data`)
+      const candidate_data_dir = fs.realpathSync(`${__dirname}/data`)
 
       try {
         if (fs.statSync(candidate_data_dir).isDirectory()) {
@@ -44,7 +44,7 @@ class ObjectDatabase {
     if (!collection) {
       debug('adding collection', name)
 
-      collection = new ObjectCollection(name, cls, this.data_dir)
+      collection = new OplogCollection(name, cls, this.data_dir)
       this.collections.set(name, collection)
     }
 
@@ -71,7 +71,7 @@ class ObjectDatabase {
 // Objects in this collection must have an `id` property which is unique to the
 // other objects in the collection.
 
-class ObjectCollection {
+class OplogCollection {
   constructor (name, cls, data_dir) {
     this.name = name
     this.cls = cls
@@ -175,7 +175,7 @@ class ObjectCollection {
 // Convenience base class for persisted objects.
 // This will notify its collection when it changes.
 
-class LoggedObject {
+class OplogObject {
   constructor (data, collection) {
     this.data = data
     this.collection = collection
@@ -201,7 +201,7 @@ class LoggedObject {
 }
 
 module.exports = {
-  ObjectDatabase,
-  ObjectCollection,
-  LoggedObject
+  Database: OplogDatabase,
+  Collection: OplogCollection,
+  Object: OplogObject
 }

@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "A operations log on JS objects",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "keywords": ["oplog"],
   "author": "Brian Hammond <brian@fictorial.com>",
   "license": "MIT",
