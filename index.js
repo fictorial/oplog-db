@@ -5,8 +5,10 @@ const EventEmitter = require('events')
 const JsonStreamReader = require('json-streaming-reader').JsonStreamReader
 const debug = require('debug')('oplog-db')
 
-class OplogDatabase {
+class OplogDatabase extends EventEmitter {
   constructor (data_dir) {
+    super()
+
     if (data_dir === undefined) {
       const candidate_data_dir = 'data'
 
@@ -25,7 +27,9 @@ class OplogDatabase {
         fs.accessSync(data_dir, fs.constants.R_OK | fs.constants.W_OK)
       }
     } catch (err) {
-      throw new Error(`invalid data dir ${data_dir}: ${err}`)
+      const error_message = `invalid data dir ${data_dir}: ${err}`
+      this.emit('error', error_message)
+      throw new Error(error_message)
     }
 
     debug('created object database with data_dir', data_dir)
@@ -42,6 +46,8 @@ class OplogDatabase {
 
       collection = new OplogCollection(name, cls, this.data_dir)
       this.collections.set(name, collection)
+
+      this.emit('collection added', collection)
     }
 
     return collection
@@ -59,6 +65,8 @@ class OplogDatabase {
     for (let collection of this.collections.values()) {
       collection.enable_logging()
     }
+
+    this.emit('loaded')
 
     return this
   }

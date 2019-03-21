@@ -1,6 +1,6 @@
 {
   "name": "oplog-db",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A operations log on JS objects",
   "main": "index.js",
   "keywords": ["oplog"],
