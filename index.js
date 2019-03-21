@@ -78,7 +78,7 @@ class OplogCollection {
   }
 
   add_object (object) {
-    this.objects[object.id] = object
+    this.objects.set(object.id, object)
     this._log({ add: object.data, t: +new Date() })
     return object
   }
