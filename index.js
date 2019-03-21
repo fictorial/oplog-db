@@ -79,7 +79,7 @@ class OplogCollection {
 
   add_object (object) {
     this.objects.set(object.id, object)
-    this._log({ add: object.data, t: +new Date() })
+    this._log({ add: object.data, t: Date.now() })
     return object
   }
 
@@ -94,15 +94,15 @@ class OplogCollection {
 
   rm_object (object) {
     this.objects.delete(object.id)
-    this._log({ rm: object.id, t: +new Date() })
+    this._log({ rm: object.id, t: Date.now() })
   }
 
   _did_set (object, keypath, value) {
-    this._log({ id: object.id, set: keypath, v: value, t: +new Date() })
+    this._log({ id: object.id, set: keypath, v: value, t: Date.now() })
   }
 
   _did_unset (object, keypath) {
-    this._log({ id: object.id, unset: keypath, t: +new Date() })
+    this._log({ id: object.id, unset: keypath, t: Date.now() })
   }
 
   enable_logging () {
